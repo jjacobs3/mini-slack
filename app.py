@@ -61,7 +61,7 @@ def message_form():
     return render_template("message_form.jinja")
 
 # Parse the entered data and then call add_message()
-@app.route('/handleMessageForm')
+@app.route('/handleMessageForm', methods=["GET","POST"])
 def handle_message_form():
     # Get the text they entered in the form
     from_name = request.form["fromname"]
