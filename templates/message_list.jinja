@@ -1,7 +1,17 @@
 {% extends "base.jinja" %}
 {% block content %}
+<table class="table">
+<tr>
+<th>From</th>
+<th>To</th>
+<th>Message</th>
+</tr>
 {% for message in message_list %}
-{{ message["text"] }}<br>(from {{ message["sender_name"] }} to {{ message["recipient_name"] }})<br>
-<hr>
+<tr>
+<td>{{ message["sender_name"] }}</td>
+<td>{{ message["recipient_name"] }}</td>
+<td>{{ message["text"] }}</td>
+</tr>
 {% endfor %}
+</table>
 {% endblock %}

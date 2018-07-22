@@ -64,11 +64,17 @@ def message_form():
 @app.route('/handleMessageForm', methods=["GET","POST"])
 def handle_message_form():
     # Get the text they entered in the form
-    from_name = request.form["fromname"]
-    to_name = request.form["toname"]
-    message_text = request.form["messagetext"]
+    from_name = request.args.get("fromname", None)
+    if not from_name:
+        return "from_name None!"
+    to_name = request.args.get("toname", None)
+    if not to_name:
+        return "to_name None!"
+    message_text = request.args.get("messagetext", None)
+    if not message_text:
+        return "message_text None!"
     # Now just call our add_message function!
-    add_message(message_text, from_name, to_name)
+    return add_message(message_text, from_name, to_name)
 
 # Add a message to the db
 def add_message(text, sender_name, recipient_name):
@@ -78,12 +84,19 @@ def add_message(text, sender_name, recipient_name):
     else:
         # Find the id of the sender
         sender_data = user_table.find_one(name=sender_name)
-        sender_id = sender_data["id"]
+        if sender_data:
+            sender_id = sender_data["id"]
+        else:
+            return "Sender not found!"
         # Find the id of the recipient
         recipient_data = user_table.find_one(name=recipient_name)
-        recipient_id = recipient_data["id"]
+        if recipient_data:
+            recipient_id = recipient_data["id"]
+        else:
+            return "Recipient not found!"
         # Add to message table
         message_id = message_table.insert(dict(text=text, sender_id=sender_id, recipient_id=recipient_id))
+        return "Message inserted!"
 
 # Show a list of all messages
 @app.route('/showMessages')
@@ -121,7 +134,8 @@ def setup_easy():
     # Add messages
     add_message("Hello friends!", "Jeff", "Tahseen")
     add_message("I'm shutting down the camp", "Sadek", "Jeff")
+    add_message("Coding is fun!", "Tahseen", "Sadek")
     return "DB set up!"
 
 if __name__ == "__main__":
-    app.run()
+    app.run(debug=True)

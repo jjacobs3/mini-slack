@@ -1,12 +1,18 @@
 {% extends "base.jinja" %}
 {% block content %}
 <form action="/handleMessageForm" method="GET">
+<div class="form-group">
 From:<br>
-<input type="text" name="fromname"><br>
+<input type="text" class="form-control" name="fromname">
+</div>
+<div class="form-group">
 To:<br>
-<input type="text" name="toname"><br>
+<input type="text" class="form-control" name="toname">
+</div>
+<div class="form-group">
 Message:<br>
-<input type="textbox" name="messagetext"><br>
-<input type="submit" value="Send Message!">
+<input type="textbox" class="form-control" name="messagetext"><br>
+</div>
+<input type="submit" class="btn btn-primary" value="Send Message!">
 </form>
 {% endblock %}

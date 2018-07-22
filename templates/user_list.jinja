@@ -1,8 +1,8 @@
 {% extends "base.jinja" %}
 {% block content %}
-<ol>
+<ol class="list-group">
 {% for user_name in user_list %}
-<li>{{ user_name }}</li>
+<li class="list-group-item">{{ user_name }}</li>
 {% endfor %}
 </ol>
 {% endblock %}
