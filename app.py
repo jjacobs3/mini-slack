@@ -1,4 +1,4 @@
-from flask import Flask, render_template, request
+from flask import Flask, render_template, request, redirect, url_for
 import dataset
 app = Flask(__name__)
 
@@ -11,6 +11,9 @@ user_table = db.create_table('users')
 message_table = db.create_table('messages')
 
 @app.route('/')
+def homepage():
+    return redirect(url_for("show_messages"))
+
 def show_db():
     # Use dataset to show all db contents
     all_users = list(user_table.find())
